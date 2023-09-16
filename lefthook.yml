@@ -1,0 +1,15 @@
+pre-commit:
+  parallel: false
+  commands:
+    linter:
+      run: fvm dart fix --apply lib && git add {staged_files}
+    sort-imports:
+      glob: "*.dart"
+      run: fvm flutter pub run import_sorter:main {staged_files} && git add {staged_files}
+    formatter:
+      glob: "*.dart"
+      run: fvm dart format {staged_files} && git add {staged_files}
+post-checkout:
+  scripts:
+    "create_branch_empty_comit.sh":
+      runner: bash
